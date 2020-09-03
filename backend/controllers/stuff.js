@@ -82,8 +82,6 @@ exports.deleteThing = (req, res, next) => {
 exports.getAllStuff = (req, res, next) => {
     var price = req.query.price;
     var title=req.query.title;
-    console.log(price);
-    console.log(title);
     var searchParams={};
     if (price) searchParams.price=price;
     if (title) searchParams.title=title;
