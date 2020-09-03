@@ -80,31 +80,38 @@ exports.deleteThing = (req, res, next) => {
 };
 
 exports.getAllStuff = (req, res, next) => {
-  Thing.find().then(
-    (things) => {
-      res.status(200).json(things);
-    }
-  ).catch(
-    (error) => {
-      res.status(400).json({
-        error: error
-      });
-    }
-  );
-};
-
-exports.getAllStuffFilter = (req, res, next) => {
-    var price = req.params.price
-    console.log(price)
-    Thing.find({price}).then(
-      (things) => {
+    var price = req.query.price;
+    var title=req.query.title;
+    console.log(price);
+    console.log(title);
+    var searchParams={};
+    if (price) searchParams.price=price;
+    if (title) searchParams.title=title;
+    Thing.find(searchParams).then(
+        (things) => {
         res.status(200).json(things);
-      }
+        }
     ).catch(
-      (error) => {
+        (error) => {
         res.status(400).json({
-          error: error
+            error: error
         });
-      }
+        }
     );
-  };
+    };
+
+// exports.getAllStuffFilter = (req, res,  next) => {
+//     var price = req.params.price
+//     console.log(price)
+//     Thing.find({price}).then(
+//       (things) => {
+//         res.status(200).json(things);
+//       }
+//     ).catch(
+//       (error) => {
+//         res.status(400).json({
+//           error: error
+//         });
+//       }
+//     );
+//   };
